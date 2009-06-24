@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django.contrib import admin
 
-from portal.apps.member.models import Member
-from portal.apps.blog.models import Entry
+from django.contrib.auth.models import User
+from models import Entry
 
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'posted'
@@ -15,7 +15,7 @@ class EntryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
     def save_model(self, request, obj, form, change):
-        obj.creator = Member.objects.get(username=request.user.username)
+        obj.creator = User.objects.get(username=request.user.username)
         obj.created = datetime.now()
 
         obj.save()
