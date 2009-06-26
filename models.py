@@ -5,7 +5,7 @@ from tinymce import models as tinymce_models
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -27,7 +27,7 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/blog/%s/%s/%s/%s/" % (     self.posted.strftime("%Y"), \
+        return "/%s/%s/%s/%s/" % (     self.posted.strftime("%Y"), \
                                             self.posted.strftime("%m"), \
                                             self.posted.strftime("%d"), \
                                             self.slug)

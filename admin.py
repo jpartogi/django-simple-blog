@@ -3,7 +3,11 @@ from datetime import datetime
 from django.contrib import admin
 
 from django.contrib.auth.models import User
-from models import Entry
+from djblog.models import *
+
+class CategoryAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'description']
 
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'posted'
@@ -20,4 +24,5 @@ class EntryAdmin(admin.ModelAdmin):
 
         obj.save()
 
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Entry, EntryAdmin)
