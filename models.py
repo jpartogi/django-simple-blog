@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 
 from tinymce import models as tinymce_models
 
@@ -22,6 +23,7 @@ class Entry(models.Model):
     posted = models.DateTimeField(verbose_name='Posted Date')
     category = models.ForeignKey(Category, verbose_name='category')
     creator = models.ForeignKey(User)
+    sites = models.ManyToManyField(Site)
 
     def __unicode__(self):
         return self.title
