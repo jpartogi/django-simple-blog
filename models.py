@@ -11,8 +11,10 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/category/%s/" % ( self.name )
+
     class Meta:
-        verbose_name = 'category'
         verbose_name_plural = 'categories'
         
 class Entry(models.Model):
@@ -29,9 +31,9 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/%s/%s/%s/%s/" % (     self.posted.strftime("%Y"), \
-                                            self.posted.strftime("%m"), \
-                                            self.posted.strftime("%d"), \
-                                            self.slug)
+        return "/%s/%s/%s/%s/" % (self.posted.strftime("%Y"), \
+                                  self.posted.strftime("%m"), \
+                                  self.posted.strftime("%d"), \
+                                  self.slug)
     class Meta:
         verbose_name_plural = 'entries'
