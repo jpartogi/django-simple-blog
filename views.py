@@ -3,7 +3,6 @@ from datetime import date
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.contrib.auth.models import User
 
 from djblog.models import *
 
@@ -15,12 +14,12 @@ def view(request, year, month, day, slug):
         'request' : request
     }, context_instance=RequestContext(request))
 
-def list(request, username=None):
-    if username != None:
-        member = get_object_or_404(User, username=username)
-        entries = Entry.objects.filter(creator=member).order_by('-posted')
-    else:
-        entries = Entry.objects.all().order_by('-posted')
+def list(request, category_name=None):
+    entries = Entry.objects.all()
+
+    if category_name!=None:
+        category = get_object_or_404(Category, name=category_name)
+        entries = Entry.objects.filter(category = category)
 
     paginator = Paginator(entries, 10)
 
