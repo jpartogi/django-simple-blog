@@ -37,3 +37,12 @@ class Entry(models.Model):
                                   self.slug)
     class Meta:
         verbose_name_plural = 'entries'
+
+class Comment(models.Model):
+    creator = models.CharField(max_length=50, verbose_name='Your Name')
+    email = models.EmailField()
+    website = models.URLField()
+    comment = models.TextField()
+    posted = models.DateTimeField(verbose_name = 'Posted Date')
+    approved = models.BooleanField()
+    entry = models.ForeignKey(Entry)
