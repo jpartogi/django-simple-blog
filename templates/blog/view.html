@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load comments %}
+{% load comment %}
 {% block title %} {{ entry.title }} {% endblock %}
 
 {% block content %}
@@ -25,7 +25,21 @@
             <a href="/">Back</a>
         </div>
     </div>
-    
+
+    <div id="comments">
+
+        {% render_comment_form %}
+        <form method="post" action="{% comment_form_target %}">
+            <table>
+            {{ commentform.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Send Comment" /></td>
+            </tr>
+            </table>
+        </form>
+    </div>
+
     <div>
         <div class="text back">
             <a href="/">Back</a>

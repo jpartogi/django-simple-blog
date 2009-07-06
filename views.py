@@ -9,6 +9,7 @@ from djblog.models import *
 def view(request, year, month, day, slug):
     posted = date(int(year), int(month), int(day))
     entry = get_object_or_404(Entry, posted__startswith = posted, slug__iexact = slug)
+    
     return render_to_response('blog/view.html', {
         'entry': entry,
         'request' : request
@@ -39,3 +40,6 @@ def list(request, category_name=None):
         'entry_list': entry_list,
         'request' : request
     }, context_instance=RequestContext(request))
+
+def add_comment(request):
+    return render_to_response('comment/preview.html')

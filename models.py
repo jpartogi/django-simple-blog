@@ -41,8 +41,9 @@ class Entry(models.Model):
 class Comment(models.Model):
     creator = models.CharField(max_length=50, verbose_name='Your Name')
     email = models.EmailField()
-    website = models.URLField()
+    website = models.URLField(null=True)
     comment = models.TextField()
     posted = models.DateTimeField(verbose_name = 'Posted Date')
     approved = models.BooleanField()
     entry = models.ForeignKey(Entry)
+    ipaddress = models.IPAddressField()
