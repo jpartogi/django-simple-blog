@@ -1,8 +1,14 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 from tinymce import models as tinymce_models
+
+class Blog(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(null=True, blank=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -30,6 +36,9 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    def save(self):
+        self.posted = datetime.datetime.now()
+        
     def get_absolute_url(self):
         return "/%s/%s/%s/%s/" % (self.posted.strftime("%Y"), \
                                   self.posted.strftime("%m"), \
@@ -44,6 +53,10 @@ class Comment(models.Model):
     website = models.URLField(null=True)
     comment = models.TextField()
     posted = models.DateTimeField(verbose_name = 'Posted Date')
-    approved = models.BooleanField()
-    entry = models.ForeignKey(Entry)
+    approved = models.BooleanField(default=False)
+    entry_id = models.IntegerField(Entry)
     ipaddress = models.IPAddressField()
+
+    def save(self):
+        self.posted = datetime.datetime.now()
+        super(Comment,self).save()

@@ -4,7 +4,10 @@ from django.contrib import admin
 
 from django.contrib.auth.models import User
 from djblog.models import *
-
+"""
+class BlogAdmin(admin.ModelAdmin):
+    pass
+"""
 class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name', 'description']
@@ -24,5 +27,6 @@ class EntryAdmin(admin.ModelAdmin):
 
         obj.save()
 
+#admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Entry, EntryAdmin)

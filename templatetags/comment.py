@@ -1,14 +1,22 @@
 from django.template import Library, Node
-from django.db.models import get_model
 
 from djblog import get_form_target
+from djblog.models import *
 from djblog.forms import *
 
 register = Library()
 
 class CommentFormNode(Node):
     def render(self, context):
-        context['commentform'] = CommentForm()
+        entry = context['entry']
+
+        if context['comment'] != None:
+            context['commentform'] = CommentForm(instance=context['comment'])
+        else:
+            context['commentform'] = CommentForm(initial={'entry_id':entry.id})
+
+        context['entry'] = entry
+        
         return ''
 
 def render_comment_form(parser, token):
