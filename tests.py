@@ -4,26 +4,35 @@ from django.test.client import Client
 
 from djblog import *
 from djblog.views import *
+from djblog.models import *
 
 class BlogTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def test_preview_comment(self):
-        url = urlresolvers.reverse('djblog.views.comment.preview')
-        logger.debug("URL %s" % url)
+    def test_blog_view(self):
+        entry = Entry.objects.get(pk=1)
 
-        data = {'creator': 'joshua',
-            'website': 'http://scrum8.com',
-            'email': 'bla@bla.com',
-            'comment': 'bla',
-            'entry_id': 1,
-            'preview': 'Preview Comment',
-        }
+        params = {'year': '2009','month': '05', 'day': '16', 'slug': 'entry-title'}
+        url = urlresolvers.reverse('djblog.views.blog.view', kwargs=params)
+        response = self.client.get(url)
 
-        response = self.client.post(url,data=data)
+        self.assertEqual(entry, response.context['entry'])
+        
         self.assertTemplateUsed(response, 'blog/view.html')
 
-    def test_save_comment(self):
-        url = urlresolvers.reverse('djblog.views.comment.save')
-        logger.debug("URL %s" % url)
+    def test_blog_list(self):
+        url = urlresolvers.reverse('djblog.views.blog.list')
+
+        response = self.client.get(url)
+        self.failUnlessEqual(len(response.context['entries'].object_list), 2)
+        
+        category = Category.objects.get(pk=1)
+
+        url = urlresolvers.reverse('djblog.views.blog.list', kwargs={'category_name':category.name})
+
+        response = self.client.get(url)
+        
+        self.failUnlessEqual( len(response.context['entries'].object_list), 1 )
+
+        self.assertTemplateUsed(response, 'blog/list.html')

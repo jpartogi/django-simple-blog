@@ -24,6 +24,18 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
         
 class Entry(models.Model):
+    """
+    These are the backend logics.
+
+    When we save if the data is new, then save created date once
+    # Create category first
+    >>> user = User.objects.get(pk=1)
+    >>> category = Category.objects.get(pk=1)
+    >>> entry = Entry.objects.create(title='test', content='test', slug='slug', category=category, posted=datetime.datetime.now(), creator=user)
+    >>> entry.save()
+    >>> entry.title = 'changed'
+    """
+    
     title = models.CharField(max_length=128)
     content = tinymce_models.HTMLField()
     slug = models.SlugField(max_length=50)
@@ -36,14 +48,17 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
-    def save(self):
-        self.posted = datetime.datetime.now()
-        
     def get_absolute_url(self):
         return "/%s/%s/%s/%s/" % (self.posted.strftime("%Y"), \
                                   self.posted.strftime("%m"), \
                                   self.posted.strftime("%d"), \
                                   self.slug)
+
+    def save(self,force_insert=False, force_update=False):
+        if self.pk == None:
+            self.created = datetime.datetime.now()
+        super(Entry, self).save(force_insert, force_update)
+
     class Meta:
         verbose_name_plural = 'entries'
 

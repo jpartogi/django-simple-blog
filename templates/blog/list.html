@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load comments %}
 
 {% block content %}
 <div id="content">
-     {% for entry in entry_list.object_list %}
+     {% for entry in entries.object_list %}
      <div class="block bordered">
          <h4><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h4>
          <div class="info">
@@ -18,8 +19,10 @@
          {% endautoescape %}
          </div>
 
-         <div class="text"><a href='{{ entry.get_absolute_url }}'>
-            More...</a>
+         <div class="text">
+             <a href='{{ entry.get_absolute_url }}'>More...</a>&nbsp;|&nbsp;
+             {% get_comment_count for entry as comment_count %}
+             <a href="{{ entry.get_absolute_url }}#comments">Comments ({{ comment_count }})</a>
         </div>
      </div>
      {% endfor %}

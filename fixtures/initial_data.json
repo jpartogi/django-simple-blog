@@ -1,0 +1,57 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "adek",
+            "first_name": "Elisha",
+            "last_name": "Priscilla",
+            "is_active": 0, 
+            "is_superuser": 0,
+            "is_staff": 1,
+            "last_login": "2009-05-16 06:09:34",
+            "groups": [],
+            "user_permissions": [58, 59],
+            "password": "sha1$f7761$bcb0dcef293ff68d27770494301472b162e93b0d",
+            "email": "elisha.priscilla@gmail.com",
+            "date_joined": "2009-05-16 06:09:34"
+        }
+    },
+    {
+        "pk" :1,
+        "model": "djblog.category",
+        "fields" : {
+            "name" : "General"
+        }
+    },
+    {
+        "pk" :2,
+        "model": "djblog.category",
+        "fields" : {
+            "name" : "Thoughts"
+        }
+    },
+    {
+        "pk" :1,
+        "model": "djblog.entry",
+        "fields" : {
+            "category": 1,
+            "creator": 1,
+            "title" : "Entry Title",
+            "slug" : "entry-title",
+            "created": "2009-05-16 06:09:34",
+            "posted": "2009-05-16 06:09:34"
+        }
+    },
+    {
+        "pk" :2,
+        "model": "djblog.entry",
+        "fields" : {
+            "category": 2,
+            "creator": 1,
+            "title" : "Second Entry Title",
+            "created": "2009-05-16 06:09:34",
+            "posted": "2009-05-16 06:09:34"
+        }
+    }
+]
