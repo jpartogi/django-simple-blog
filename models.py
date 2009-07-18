@@ -22,11 +22,12 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
-        
+
+    
 class Entry(models.Model):
     """
     These are the backend logics.
-
+    
     When we save if the data is new, then save created date once
     # Create category first
     >>> user = User.objects.get(pk=1)
@@ -34,8 +35,7 @@ class Entry(models.Model):
     >>> entry = Entry.objects.create(title='test', content='test', slug='slug', category=category, posted=datetime.datetime.now(), creator=user)
     >>> entry.save()
     >>> entry.title = 'changed'
-    """
-    
+    """    
     title = models.CharField(max_length=128)
     content = tinymce_models.HTMLField()
     slug = models.SlugField(max_length=50)
@@ -62,6 +62,7 @@ class Entry(models.Model):
     class Meta:
         verbose_name_plural = 'entries'
 
+"""
 class Comment(models.Model):
     creator = models.CharField(max_length=50, verbose_name='Your Name')
     email = models.EmailField()
@@ -75,3 +76,4 @@ class Comment(models.Model):
     def save(self):
         self.posted = datetime.datetime.now()
         super(Comment,self).save()
+ """    
