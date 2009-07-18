@@ -23,8 +23,6 @@ class EntryAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.creator = User.objects.get(username=request.user.username)
-        obj.created = datetime.now()
-
         obj.save()
 
 #admin.site.register(Blog, BlogAdmin)

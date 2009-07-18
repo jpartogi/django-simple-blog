@@ -10,6 +10,7 @@ settings.py
 *~
 .project
 .pydevproject
+*.kpf
 
 nbproject/*
 .ropeproject/*
