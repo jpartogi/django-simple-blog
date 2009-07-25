@@ -23,6 +23,17 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
+
+class EntryManager(models.Manager):
+    def get_next_entry(self, pk):
+        list = self.filter(id__gt=pk)
+        if list.count() > 0: return list[1]
+        else: return None
+
+    def get_prev_entry(self, pk):
+        list = self.filter(id__lt=pk).reverse()
+        if list.count() > 0: return list[1]
+        else: return None
     
 class Entry(models.Model):
     """
@@ -35,6 +46,11 @@ class Entry(models.Model):
     >>> entry = Entry.objects.create(title='test', content='test', slug='slug', category=category, posted=datetime.datetime.now(), creator=user)
     >>> entry.save()
     >>> entry.title = 'changed'
+    >>> cls = entry.__class__
+    >>> print entry.get_next_entry()
+    None
+    >>> print entry.get_prev_entry()
+    Second Entry Title
     """    
     title = models.CharField(max_length=128)
     content = tinymce_models.HTMLField()
@@ -45,19 +61,25 @@ class Entry(models.Model):
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
 
+    objects = EntryManager()
+    #_default_manager = EntryManager()
+
     def __unicode__(self):
         return self.title
 
     def get_absolute_url(self):
-        return "/%s/%s/%s/%s/" % (self.posted.strftime("%Y"), \
-                                  self.posted.strftime("%m"), \
-                                  self.posted.strftime("%d"), \
-                                  self.slug)
+        return "/%s/%s/" % (self.posted.strftime("%Y/%b/%d").lower(), self.slug)
 
     def save(self,force_insert=False, force_update=False):
         if self.pk == None:
             self.created = datetime.datetime.now()
         super(Entry, self).save(force_insert, force_update)
+
+    def get_next_entry(self):
+        return self.__class__._default_manager.get_next_entry(self.pk)
+
+    def get_prev_entry(self):
+        return self.__class__._default_manager.get_prev_entry(self.pk)
 
     class Meta:
         verbose_name_plural = 'entries'

@@ -3,7 +3,7 @@ from django.utils.feedgenerator import Atom1Feed
 
 from djblog.models import Entry, Category
 
-class LatestEntries(Feed):
+class EntriesFeed(Feed):
     feed_type = Atom1Feed
     title = "Blog Feed"
     link = "/blog/"

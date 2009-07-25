@@ -37,8 +37,8 @@
         "fields" : {
             "category": 1,
             "creator": 1,
-            "title" : "Entry Title",
-            "slug" : "entry-title",
+            "title" : "First Entry Title",
+            "slug" : "first-entry-title",
             "created": "2009-05-16 06:09:34",
             "posted": "2009-05-16 06:09:34"
         }
@@ -50,6 +50,7 @@
             "category": 2,
             "creator": 1,
             "title" : "Second Entry Title",
+            "slug" : "second-entry-title",
             "created": "2009-05-16 06:09:34",
             "posted": "2009-05-16 06:09:34"
         }

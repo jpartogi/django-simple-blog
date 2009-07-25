@@ -37,7 +37,7 @@ def list(request, category_name=None):
     except (EmptyPage, InvalidPage):
         entries = paginator.page(paginator.num_pages)
     
-    return render_to_response('blog/list.html', {
+    return render_to_response('djblog/list.html', {
         'entries': entries,
         'request': request,
     }, context_instance=RequestContext(request))
