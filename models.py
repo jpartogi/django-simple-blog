@@ -4,8 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
-from tinymce import models as tinymce_models
-
 class Blog(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
@@ -53,7 +51,7 @@ class Entry(models.Model):
     Second Entry Title
     """    
     title = models.CharField(max_length=128)
-    content = tinymce_models.HTMLField()
+    content = models.TextField()
     slug = models.SlugField(max_length=50)
     created = models.DateTimeField(verbose_name='Created Date')
     posted = models.DateTimeField(verbose_name='Posted Date')
