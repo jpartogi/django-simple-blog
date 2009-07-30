@@ -15,7 +15,7 @@ info_dict = {
 urlpatterns = patterns('djblog.views.blog',
     (r'^category/(?P<category_name>\S+)/$','list' ),
     #(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d+)/(?P<slug>[a-z0-9]+\S+)/$','view'),
-    (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>\w+)/$', date_based.object_detail, dict(info_dict, slug_field='slug')),
+    (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>\S+)/$', date_based.object_detail, dict(info_dict, slug_field='slug')),
     (r'^$','list'),
     #(r'^$', date_based.archive_index, dict(info_dict, template_name='djblog/list.html')),
 )
