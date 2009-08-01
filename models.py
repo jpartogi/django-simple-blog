@@ -58,11 +58,10 @@ class Entry(models.Model):
     category = models.ForeignKey(Category, verbose_name='category')
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
-    #is_draft = models.BooleanField()
+    is_draft = models.BooleanField()
 
     objects = EntryManager()
-    #_default_manager = EntryManager()
-
+    
     def __unicode__(self):
         return self.title
 

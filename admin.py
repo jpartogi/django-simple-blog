@@ -17,7 +17,7 @@ class EntryAdmin(admin.ModelAdmin):
     list_select_related = True
     search_fields = ('title', 'content')
     exclude = ('creator', 'created')
-    list_display = ('title', 'category', 'creator', 'posted', 'created')
+    list_display = ('title', 'category', 'creator', 'posted', 'created', 'is_draft')
     list_filter = ('posted', 'created', 'category')
     prepopulated_fields = {"slug": ("title",)}
 
