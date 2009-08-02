@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from django.views.generic import date_based, list_detail
+from django.views.generic import date_based, list_detail, simple
 from djblog.models import Entry
 from djblog.feeds import EntriesFeed
 
@@ -22,8 +22,9 @@ entry_list_dict = {
     'paginate_by': 10,
 }
 
-urlpatterns = patterns('djblog.views.blog',
+urlpatterns = patterns('djblog.views',
     (r'^category/(?P<category_name>\S+)/$','list' ),
+    (r'^comment/saved/$',  simple.direct_to_template, {'template': 'comments/saved.html'}, 'djblog-comment-saved'),
     (r'^(?P<year>\d{4})/$', date_based.archive_year, dict(entry_dict, template_name='blog/archives.html')),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$', date_based.archive_month, dict(entry_dict, template_name='blog/archives.html')),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$', date_based.archive_day, dict(entry_dict, template_name='blog/archives.html')),
@@ -31,10 +32,7 @@ urlpatterns = patterns('djblog.views.blog',
     (r'^$', list_detail.object_list, dict(entry_list_dict), 'djblog-blog-list'),
 )
 
-urlpatterns += patterns('djblog.views.comment',
-    (r'^comment/saved', 'saved'),
-)
-
+#TODO: Add comments syndication feed
 urlpatterns += patterns('',
     (r'^feed/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^comments/', include('django.contrib.comments.urls')),

@@ -21,12 +21,13 @@
 
         <div style="clear:both"></div>
     </div>
+    
     <div>
         <div class="text back">
             <a href="{% url djblog-blog-list %}">Back</a>
         </div>
     </div>
-
+    
     <div id="comments">
     {% get_comment_list for entry as comments %}
 
@@ -42,7 +43,7 @@
     {% get_comment_form for entry as form %}
     {% include "comments/djblog_entry_form.html" %}
     </div>
-
+    
     <div>
         <div class="text back">
             <a href="{% url djblog-blog-list %}">Back</a>

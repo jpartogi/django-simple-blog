@@ -7,15 +7,6 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from djblog.forms import *
 from djblog.models import *
 
-def view(request, year, month, day, slug):
-    posted = date(int(year), int(month), int(day))
-    entry = get_object_or_404(Entry, posted__startswith = posted, slug__iexact = slug)
-    
-    return render_to_response('blog/view.html', {
-        'entry': entry,
-        'request': request,
-    }, context_instance=RequestContext(request))
-
 def list(request, category_name=None):
     entry_list = Entry.objects.all()
     
@@ -37,7 +28,7 @@ def list(request, category_name=None):
     except (EmptyPage, InvalidPage):
         entries = paginator.page(paginator.num_pages)
     
-    return render_to_response('djblog/list.html', {
+    return render_to_response('blog/list.html', {
         'entries': entries,
         'request': request,
     }, context_instance=RequestContext(request))
