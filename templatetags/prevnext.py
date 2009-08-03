@@ -2,31 +2,23 @@ from django.template import Library, Node
 from django.db.models import get_model
 
 register = Library()
-
-class PrevEntryNode(Node):
+    
+class NextPrevEntryNode(Node):
     def render(self, context):
         entry = context['entry']
+        
+        next_entry = entry.get_next_entry()
         prev_entry = entry.get_prev_entry()
         
-        if prev_entry is not None: 
-            return prev_entry
-        else:
-            return ''
-
-def prev_entry(parser, token):
-    return PrevEntryNode()
-
-class NextEntryNode(Node):
-    def render(self, context):
-        entry = context['entry']
-        next_entry = entry.get_next_entry()
-        
         if next_entry is not None:
-            return next_entry
+            context['next_entry'] = entry.get_next_entry()
+        
+        if prev_entry is not None:
+            context['prev_entry'] = entry.get_prev_entry()
+        
         return ''
-    
-def next_entry(parser, token):
-    return NextEntryNode()
+ 
+def get_next_prev_entry (parser, token):
+    return NextPrevEntryNode()
 
-prev_entry = register.tag(prev_entry)
-next_entry = register.tag(next_entry)
+get_next_prev_entry = register.tag(get_next_prev_entry)

@@ -26,12 +26,12 @@ class Category(models.Model):
 class EntryManager(models.Manager):
     def get_next_entry(self, pk):
         list = self.filter(id__gt=pk)
-        if list.count() > 0: return list[1]
+        if len(list) > 0: return list[0]
         else: return None
 
     def get_prev_entry(self, pk):
         list = self.filter(id__lt=pk).reverse()
-        if list.count() > 0: return list[1]
+        if len(list) > 0: return list[0]
         else: return None
     
 class Entry(models.Model):

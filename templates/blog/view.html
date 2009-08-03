@@ -9,8 +9,10 @@
 
 <div id="content">
     <div id="prevnext">
-        <div id="prev">{% prev_entry %}</div>
-        <div id="next">{% next_entry %}</div>
+        {% get_next_prev_entry %}
+
+        <div id="prev"><a href="{{ prev_entry.get_absolute_url }}">{{ prev_entry.title }}</a></div>
+        <div id="next"><a href="{{ next_entry.get_absolute_url }}">{{ next_entry.title }}</a></div> 
     </div>
     
     <h4>{{ entry.title }}</h4>
