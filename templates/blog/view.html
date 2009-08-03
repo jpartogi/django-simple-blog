@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load comments %}
+{% load prevnext %} 
 
 {% block title %} {{ entry.title }} {% endblock %}
 
 {% block content %}
+
 <div id="content">
+    <div id="prevnext">
+        <div id="prev">{% prev_entry %}</div>
+        <div id="next">{% next_entry %}</div>
+    </div>
+    
     <h4>{{ entry.title }}</h4>
     <div class="info">
         Posted {{ entry.posted|naturalday }} by {{ entry.creator }}
         filed under <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
     </div>
-
+    
     <div class="block bordered">
         <div class="entryblock">
         {% autoescape off %}
