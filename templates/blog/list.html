@@ -5,25 +5,24 @@
 {% block content %}
 <div id="content">
     {% for entry in entry_list %}
-    <div class="block bordered">
-        <h4><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h4>
-        <div class="info">
-           Posted {{ entry.posted|naturalday }}
-           by {{ entry.creator }} filed under
-           <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
-        </div>
+    <h2 id="title"><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h2>
+    <div class="info border-bottom">
+        Posted {{ entry.posted|naturalday }} by {{ entry.creator }} filed under
+        <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>.
+       
+        {% get_comment_count for entry as comment_count %}
+        <span id="comment_link">
+            <a href="{{ entry.get_absolute_url }}#comments">
+            Comment{{ comment_count|pluralize }} ({{ comment_count }})
+            </a>
+        </span>    
+    </div>
 
-        <div class="entryblock">
-        {% autoescape off %}
-           {{ entry.content|truncatewords:25 }}
-        {% endautoescape %}
-        </div>
-
-        <div class="text">
-            <a href='{{ entry.get_absolute_url }}'>More...</a>&nbsp;|&nbsp;
-            {% get_comment_count for entry as comment_count %}
-            <a href="{{ entry.get_absolute_url }}#comments">Comments ({{ comment_count }})</a>
-       </div>
+    <div class="entryblock">
+    {% autoescape off %}
+       {{ entry.content|truncatewords:25 }}
+    {% endautoescape %}
+    <a href='{{ entry.get_absolute_url }}'>Read More</a>&nbsp;&raquo;
     </div>
     {% endfor %}
 </div>

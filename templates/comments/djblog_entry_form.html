@@ -1,6 +1,8 @@
 {% load comments %}
 {% load i18n %}
-<form action="{% comment_form_target %}" method="post">
+<form id="comment-form" action="{% comment_form_target %}" method="post">    
+    <h4>Leave your comment</h4>
+
     {% if form.errors %}
     <h2>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
     {% endif %}
@@ -15,8 +17,8 @@
         <tr
           {% if field.errors %} class="error"{% endif %}
           {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
-          <th>{{ field.label_tag }}</th>
-          <td>{{ field }}</td>
+          <th width="25%" valign="top">{{ field.label_tag }}&nbsp; : &nbsp;</th>
+          <td width="50%">{{ field }}</td>
         </tr>
       {% endif %}
     {% endfor %}

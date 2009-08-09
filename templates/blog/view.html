@@ -15,48 +15,45 @@
         <div id="next"><a href="{{ next_entry.get_absolute_url }}">{{ next_entry.title }}</a></div> 
     </div>
     
-    <h4>{{ entry.title }}</h4>
-    <div class="info">
+    <h2 id="title">{{ entry.title }}</h2>
+    <div class="info border-bottom">
         Posted {{ entry.posted|naturalday }} by {{ entry.creator }}
         filed under <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
     </div>
     
-    <div class="block bordered">
-        <div class="entryblock">
+    <div class="entryblock">
         {% autoescape off %}
             {{ entry.content }}
         {% endautoescape %}
-        </div>
 
         <div style="clear:both"></div>
     </div>
     
-    <div>
-        <div class="text back">
-            <a href="{% url djblog-blog-list %}">Back</a>
-        </div>
+    <div class="text back">
+        &laquo; <a href="{% url djblog-blog-list %}">Back</a>
     </div>
     
     <div id="comments">
+    <h2 id="title" class="border-bottom">Comments</h2>
     {% get_comment_list for entry as comments %}
 
+    <ol class="comment block">
     {% for comment in comments %}
-        <div class="comment block">
-        {{ comment.submit_date }}
-        {{ comment.user_name }}
-        {{ comment.user_url }}
-        {{ comment.comment }}
-        </div>
+    <li>
+        <a href="{{ comment.user_url }}">{{ comment.user_name }}</a> said:
+        <div class="info">{{ comment.submit_date|date:"l, F dS Y" }}</div>
+         
+        <div class="border-bottom">{{ comment.comment }}</div>
+    </li>    
     {% endfor %}
-
+    </ol>
+    
     {% get_comment_form for entry as form %}
     {% include "comments/djblog_entry_form.html" %}
     </div>
     
-    <div>
-        <div class="text back">
-            <a href="{% url djblog-blog-list %}">Back</a>
-        </div>
+    <div class="text back">
+        &laquo; <a href="{% url djblog-blog-list %}">Back</a>
     </div>
 </div>
 {% endblock %}
