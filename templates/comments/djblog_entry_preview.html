@@ -4,12 +4,9 @@
 
 {% block content %}
 <div id="content">
-    <div class="block bordered">
-    <h2>{% trans "Preview your comment" %}</h2>
+    <h2 id="title">{% trans "Preview your comment" %}</h2>
     <blockquote>{{ comment|linebreaks }}</blockquote>
 
     {% include "comments/djblog_entry_form.html" %}
-        
-    </div>
 </div>
 {% endblock %}

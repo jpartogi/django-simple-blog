@@ -7,6 +7,7 @@ from django.contrib.sites.models import Site
 class Blog(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
+    sites = models.ManyToManyField(Site)
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -25,12 +26,12 @@ class Category(models.Model):
 class EntryManager(models.Manager):
     def get_next_entry(self, pk):
         list = self.filter(id__gt=pk)
-        if list.count() > 0: return list[1]
+        if len(list) > 0: return list[0]
         else: return None
 
     def get_prev_entry(self, pk):
         list = self.filter(id__lt=pk).reverse()
-        if list.count() > 0: return list[1]
+        if len(list) > 0: return list[0]
         else: return None
     
 class Entry(models.Model):
@@ -58,11 +59,10 @@ class Entry(models.Model):
     category = models.ForeignKey(Category, verbose_name='category')
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
-    #is_draft = models.BooleanField()
+    is_draft = models.BooleanField()
 
     objects = EntryManager()
-    #_default_manager = EntryManager()
-
+    
     def __unicode__(self):
         return self.title
 
@@ -81,20 +81,4 @@ class Entry(models.Model):
         return self.__class__._default_manager.get_prev_entry(self.pk)
 
     class Meta:
-        verbose_name_plural = 'entries'
-
-"""
-class Comment(models.Model):
-    creator = models.CharField(max_length=50, verbose_name='Your Name')
-    email = models.EmailField()
-    website = models.URLField(null=True)
-    comment = models.TextField()
-    posted = models.DateTimeField(verbose_name = 'Posted Date')
-    approved = models.BooleanField(default=False)
-    entry_id = models.IntegerField(Entry)
-    ipaddress = models.IPAddressField()
-
-    def save(self):
-        self.posted = datetime.datetime.now()
-        super(Comment,self).save()
- """    
+        verbose_name_plural = 'entries'  
