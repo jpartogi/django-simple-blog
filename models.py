@@ -1,3 +1,4 @@
+# $Id: models.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
 import datetime
 
 from django.db import models
@@ -54,7 +55,8 @@ class Entry(models.Model):
     title = models.CharField(max_length=128)
     content = models.TextField()
     slug = models.SlugField(max_length=50)
-    created = models.DateTimeField(verbose_name='Created Date')
+    created = models.DateTimeField(auto_now_add = True, verbose_name='Created Date')
+    updated = models.DateTimeField(auto_now = True, verbose_name='Updated Date')
     posted = models.DateTimeField(verbose_name='Posted Date')
     category = models.ForeignKey(Category, verbose_name='category')
     creator = models.ForeignKey(User)
@@ -68,11 +70,6 @@ class Entry(models.Model):
 
     def get_absolute_url(self):
         return "/%s/%s/" % (self.posted.strftime("%Y/%b/%d").lower(), self.slug)
-
-    def save(self,force_insert=False, force_update=False):
-        if self.pk == None:
-            self.created = datetime.datetime.now()
-        super(Entry, self).save(force_insert, force_update)
 
     def get_next_entry(self):
         return self.__class__._default_manager.get_next_entry(self.pk)

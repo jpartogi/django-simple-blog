@@ -1,14 +1,7 @@
+# $Id: forms.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
 import datetime
 
 from django import forms
 from django.forms import ModelForm
 
-from djblog.models import *
-"""
-class CommentForm(ModelForm):
-    entry_id = forms.IntegerField(widget=forms.HiddenInput())
-
-    class Meta:
-        model = Comment
-        exclude = ('posted', 'approved', 'entry', 'ipaddress', )
-"""        
+from djblog.models import *     

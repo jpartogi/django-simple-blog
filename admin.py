@@ -1,3 +1,4 @@
+# $Id: admin.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
 from datetime import datetime
 
 from django.contrib import admin

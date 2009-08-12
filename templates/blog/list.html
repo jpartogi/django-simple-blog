@@ -3,7 +3,7 @@
 {% load comments %}
 
 {% block content %}
-<div id="content">
+<div id="content"> 
     {% for entry in entry_list %}
     <h2 id="title"><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h2>
     <div class="info border-bottom">
