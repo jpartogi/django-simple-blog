@@ -7,5 +7,5 @@ djblog
 A simple pluggable django blog implementation.
 
 Dependencies:
-* [[http://bitbucket.org/scrum8/django-wmd-editor/|django-wmd-editor]]
-* [[http://www.freewisdom.org/projects/python-markdown/|Python Markdown]]
+* django wmd editor [[http://bitbucket.org/scrum8/django-wmd-editor/|django-wmd-editor]]
+* Python Markdown library [[http://www.freewisdom.org/projects/python-markdown/|Python Markdown]]
