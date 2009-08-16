@@ -1,3 +1,4 @@
+# $Id: feeds.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
 

@@ -1,4 +1,4 @@
-from datetime import datetime
+# $Id: admin.py 5a73e141766a 2009/08/16 12:48:32 jpartogi $
 
 from django.contrib import admin
 
@@ -17,7 +17,7 @@ class EntryAdmin(admin.ModelAdmin):
     list_select_related = True
     search_fields = ('title', 'content')
     exclude = ('creator', 'created')
-    list_display = ('title', 'category', 'creator', 'posted', 'created', 'is_draft')
+    list_display = ('title', 'category', 'creator', 'posted', 'created', 'updated', 'is_draft')
     list_filter = ('posted', 'created', 'category')
     prepopulated_fields = {"slug": ("title",)}
 
