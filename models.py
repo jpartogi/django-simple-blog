@@ -1,9 +1,10 @@
-# $Id: models.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
+# $Id: models.py 5a73e141766a 2009/08/16 12:48:32 jpartogi $
 import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from wmd import models as wmd_models
 
 class Blog(models.Model):
     name = models.CharField(max_length=50)
@@ -53,12 +54,12 @@ class Entry(models.Model):
     Second Entry Title
     """    
     title = models.CharField(max_length=128)
-    content = models.TextField()
+    category = models.ForeignKey(Category, verbose_name='category')
+    content = wmd_models.MarkDownField()
     slug = models.SlugField(max_length=50)
     created = models.DateTimeField(auto_now_add = True, verbose_name='Created Date')
     updated = models.DateTimeField(auto_now = True, verbose_name='Updated Date')
     posted = models.DateTimeField(verbose_name='Posted Date')
-    category = models.ForeignKey(Category, verbose_name='category')
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
     is_draft = models.BooleanField()

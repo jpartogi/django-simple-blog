@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load humanize %}
 {% load comments %}
+{% load markup %}
 
 {% block content %}
 <div id="content"> 
@@ -20,7 +21,7 @@
 
     <div class="entryblock">
     {% autoescape off %}
-       {{ entry.content|truncatewords:25 }}
+       {{ entry.content|markdown|truncatewords:25 }}
     {% endautoescape %}
     <a href='{{ entry.get_absolute_url }}'>Read More</a>&nbsp;&raquo;
     </div>
