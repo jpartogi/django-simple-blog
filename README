@@ -1,11 +1,9 @@
 .. -*-markdown-*-
 
-======
-djblog
-======
+### djblog
 
 A simple pluggable django blog implementation.
 
 Dependencies:
-1. [django wmd editor] (http://bitbucket.org/scrum8/django-wmd-editor/)
-2. [Python Markdown library] (http://www.freewisdom.org/projects/python-markdown/)
+ 1. [django wmd editor](http://bitbucket.org/scrum8/django-wmd-editor/ "django-wmd-editor")
+ 2. [Python Markdown library](http://www.freewisdom.org/projects/python-markdown/ "Python Markdown")
