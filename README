@@ -5,5 +5,5 @@
 A simple pluggable django blog implementation.
 
 Dependencies:
-* [django-wmd-editor](http://bitbucket.org/scrum8/django-wmd-editor/) 
-* [Python Markdown library](http://www.freewisdom.org/projects/python-markdown/)
+- [django-wmd-editor](http://bitbucket.org/scrum8/django-wmd-editor/) 
+- [Python Markdown library](http://www.freewisdom.org/projects/python-markdown/)
