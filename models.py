@@ -1,4 +1,4 @@
-# $Id: models.py 5a73e141766a 2009/08/16 12:48:32 jpartogi $
+# $Id: models.py dc12680eeaff 2009/08/17 12:21:30 jpartogi $
 import datetime
 
 from django.db import models
@@ -35,6 +35,9 @@ class EntryManager(models.Manager):
         list = self.filter(id__lt=pk).reverse()
         if len(list) > 0: return list[0]
         else: return None
+
+    def get_latest_posted_entries(self):
+        return Entry.objects.exclude(posted__gte=datetime.datetime.now()).exclude(is_draft=True).order_by('posted')
     
 class Entry(models.Model):
     """

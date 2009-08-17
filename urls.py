@@ -1,10 +1,11 @@
-# $Id: urls.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
+# $Id: urls.py dc12680eeaff 2009/08/17 12:21:30 jpartogi $
+from djblog.models import EntryManager
 import datetime
 
 from django.conf.urls.defaults import *
 from django.views.generic import date_based, list_detail, simple
 
-from djblog.models import Entry
+from djblog.models import Entry, EntryManager
 from djblog.feeds import EntriesFeed
 from djblog.views import entry_list
 
@@ -12,7 +13,7 @@ feeds = {
     'entries': EntriesFeed,
 }
 
-queryset = Entry.objects.exclude(posted__gte=datetime.datetime.now()).exclude(is_draft=True).order_by('posted')
+queryset = Entry.objects.get_latest_posted_entries()
 
 entry_dict = {
     'queryset': queryset,
