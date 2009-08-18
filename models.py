@@ -1,4 +1,4 @@
-# $Id: models.py 2ffede5405a4 2009/08/18 11:06:49 jpartogi $
+# $Id: models.py 02aa4fbb5a66 2009/08/18 11:26:35 jpartogi $
 import datetime
 
 from django.db import models
@@ -24,7 +24,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'categories'
-
+        ordering = ['name']
 
 class EntryManager(models.Manager):
     def get_next_entry(self, pk):
