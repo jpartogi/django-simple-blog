@@ -1,6 +1,8 @@
 from django.template import Library, Node
 from django.db.models import get_model
 
+from djblog.models import Entry
+
 register = Library()
 
 class LatestContentNode(Node):
@@ -21,3 +23,13 @@ def get_latest(parser, token):
     return LatestContentNode(bits[1], bits[2], bits[4])
 
 get_latest = register.tag(get_latest)
+
+class LatestEntriesNode(Node):
+    def render(self, context):
+        context['entries'] = Entry.objects.get_latest_posted_entries()
+        return ''
+
+def get_latest_entries(parser, token):
+    return LatestEntriesNode()
+
+get_latest_entries = register.tag(get_latest_entries)
