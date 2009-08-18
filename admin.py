@@ -1,4 +1,4 @@
-# $Id: admin.py 5a73e141766a 2009/08/16 12:48:32 jpartogi $
+# $Id: admin.py 2ffede5405a4 2009/08/18 11:06:49 jpartogi $
 
 from django.contrib import admin
 
@@ -10,6 +10,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    prepopulated_fields = {"slug": ("name",)}
     list_display = ['name', 'description']
 
 class EntryAdmin(admin.ModelAdmin):

@@ -3,6 +3,7 @@
 ### djblog
 
 A simple pluggable django blog implementation.
+-----
 
 Dependencies:
 

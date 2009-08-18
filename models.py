@@ -1,4 +1,4 @@
-# $Id: models.py dc12680eeaff 2009/08/17 12:21:30 jpartogi $
+# $Id: models.py 2ffede5405a4 2009/08/18 11:06:49 jpartogi $
 import datetime
 
 from django.db import models
@@ -14,12 +14,13 @@ class Blog(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
+    slug = models.SlugField(max_length=50)
 
     def __unicode__(self):
         return self.name
 
     def get_absolute_url(self):
-        return "/category/%s/" % ( self.name )
+        return "/category/%s/" % ( self.slug )
 
     class Meta:
         verbose_name_plural = 'categories'

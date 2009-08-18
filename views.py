@@ -1,4 +1,4 @@
-# $Id: views.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
+# $Id: views.py 2ffede5405a4 2009/08/18 11:06:49 jpartogi $
 from django.shortcuts import get_object_or_404
 from django.views.generic import list_detail
 
@@ -9,7 +9,7 @@ def entry_list(request, category_name=None, queryset=None, paginate_by=None,
         template_name=None, template_object_name=None):
 
     if category_name!=None:
-        category = get_object_or_404(Category, name=category_name)
+        category = get_object_or_404(Category, slug=category_name)
         queryset = queryset.filter(category = category)
     
     queryset.order_by('posted')
