@@ -12,8 +12,15 @@
     <div id="prevnext">
         {% get_next_prev_entry %}
 
-        <div id="prev"><a href="{{ prev_entry.get_absolute_url }}">{{ prev_entry.title }}</a></div>
-        <div id="next"><a href="{{ next_entry.get_absolute_url }}">{{ next_entry.title }}</a></div> 
+        {% if prev_entry %}
+        <div id="prev">&laquo;&nbsp;<a href="{{ prev_entry.get_absolute_url }}">{{ prev_entry.title }}</a></div>
+        {% endif %}
+
+        {% if next_entry %}
+        <div id="next"><a href="{{ next_entry.get_absolute_url }}">{{ next_entry.title }}</a>&nbsp;&raquo;</div>
+        {% endif %}
+        
+        <div style="clear:both"></div>
     </div>
     
     <h2 id="title">{{ entry.title }}</h2>
