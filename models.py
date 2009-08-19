@@ -1,4 +1,4 @@
-# $Id: models.py 74d3924c1338 2009/08/19 10:51:10 jpartogi $
+# $Id: models.py 647d376a30b3 2009/08/19 13:22:31 jpartogi $
 import datetime
 
 from django.db import models
@@ -29,12 +29,12 @@ class Category(models.Model):
 
 class EntryManager(models.Manager):
     def get_prev_entry(self, pk):
-        list = self.filter(id__gt=pk)
+        list = self.get_latest_posted_entries().filter(id__gt=pk)
         if len(list) > 0: return list[0]
         else: return None
 
     def get_next_entry(self, pk):
-        list = self.filter(id__lt=pk).reverse()
+        list = self.get_latest_posted_entries().filter(id__lt=pk).reverse()
         if len(list) > 0: return list[0]
         else: return None
 
