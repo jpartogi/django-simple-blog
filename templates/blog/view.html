@@ -22,25 +22,27 @@
         
         <div style="clear:both"></div>
     </div>
-    
-    <h2 id="title">{{ entry.title }}</h2>
-    <div class="info border-bottom">
-        Posted {{ entry.posted|naturalday }} by {{ entry.creator }}
-        filed under <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
-    </div>
-    
-    <div class="entryblock">
-        {% autoescape off %}
-            {{ entry.content|markdown }}
-        {% endautoescape %}
 
-        <div style="clear:both"></div>
+    <div class="entryblock">
+        <h2 id="title">{{ entry.title }}</h2>
+        <div class="info border-bottom">
+            Posted {{ entry.posted|naturalday }} by {{ entry.creator }}
+            filed under <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
+        </div>
+
+        <div class="entry">
+            {% autoescape off %}
+                {{ entry.content|markdown:"codehilite" }}
+            {% endautoescape %}
+
+            <div style="clear:both"></div>
+        </div>
+
+        <div class="text back">
+            &laquo; <a href="{% url djblog-blog-list %}">Back</a>
+        </div>
     </div>
-    
-    <div class="text back">
-        &laquo; <a href="{% url djblog-blog-list %}">Back</a>
-    </div>
-    
+
     <div id="comments">
     <h2 id="title" class="border-bottom">Comments</h2>
     {% get_comment_list for entry as comments %}

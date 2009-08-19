@@ -19,12 +19,14 @@
                 </a>
             </span>
         </div>
-        <p>
-        {% autoescape off %}
-           {{ entry.content|markdown|truncatewords:25 }}
-        {% endautoescape %}
-        </p>
-        <p><a href='{{ entry.get_absolute_url }}'>Read More</a>&nbsp;&raquo;</p>
+
+        <div class="entry">
+           {% autoescape off %}
+           {{ entry.content|markdown:"codehilite"|truncatewords_html:25 }}
+           {% endautoescape %}
+        </div>
+        <a href='{{ entry.get_absolute_url }}'>Read More</a>&nbsp;&raquo;
+        <div style="clear:both"></div>
     </div>
     {% endfor %}
 </div>
