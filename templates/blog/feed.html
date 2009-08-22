@@ -1,0 +1,4 @@
+{% load markup %}
+{% autoescape off %}
+{{ obj.content|markdown:"codehilite"|truncatewords_html:25 }}
+{% endautoescape %}

@@ -1,4 +1,4 @@
-# $Id: feeds.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
+# $Id: feeds.py 5ee3537e5395 2009/08/22 11:31:30 jpartogi $
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
 
@@ -6,20 +6,20 @@ from djblog.models import Entry, Category
 
 class EntriesFeed(Feed):
     feed_type = Atom1Feed
-    title = "Blog Feed"
+    title = "Blog Entries Feed"
     link = "/blog/"
-    description = "Blog Feed"
-    #description_template = 'job/feed.html'
+    description = "Blog Entries Feed"
+    description_template = 'blog/feed.html'
 
     def items(self):
-        return Entry.objects.order_by('-posted')[:10]
+        return Entry.objects.get_latest_posted_entries()[:10]
 
     def item_author_name(self, item):
         """
         Takes an item, as returned by items(), and returns the item's
         author's name as a normal Python string.
         """
-        return item.creator.username
+        return item.creator
 
     def item_pubdate(self, item):
         """
