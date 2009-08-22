@@ -6,7 +6,7 @@
 {% block content %}
 <div id="content"> 
     {% for entry in entry_list %}
-    <div class="entryblock">
+    <div class="block">
         <h2 id="title"><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h2>
         <div class="info border-bottom">
             Posted {{ entry.posted|naturalday }} by {{ entry.creator }} filed under
