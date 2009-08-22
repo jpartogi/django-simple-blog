@@ -1,4 +1,4 @@
-# $Id: urls.py dc12680eeaff 2009/08/17 12:21:30 jpartogi $
+# $Id: urls.py cf46f85cb17e 2009/08/22 01:20:46 jpartogi $
 from djblog.models import EntryManager
 import datetime
 
@@ -31,7 +31,7 @@ entry_list_dict = {
 #TODO: Add comments syndication feed
 urlpatterns = patterns('',
     (r'^category/(?P<category_name>[\w-]+)/$', entry_list, dict(entry_list_dict) ),
-    (r'^feed/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+    (r'^feed/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, 'djblog-entry-feeds'), #TODO: can not call reverse url
     (r'^comments/', include('django.contrib.comments.urls')),
     
     (r'^comment/saved/$',  simple.direct_to_template, {'template': 'comments/saved.html'}, 'djblog-comment-saved'),
@@ -41,5 +41,5 @@ urlpatterns = patterns('',
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[\w-]+)/$', date_based.object_detail, dict(entry_dict, template_name='blog/view.html', slug_field = 'slug',)),
     
     #This must be last
-    (r'^$', list_detail.object_list, dict(entry_list_dict), 'djblog-blog-list'),
+    (r'^$', list_detail.object_list, dict(entry_list_dict), 'djblog-entry-list'),
 )
