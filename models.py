@@ -1,4 +1,4 @@
-# $Id: models.py 647d376a30b3 2009/08/19 13:22:31 jpartogi $
+# $Id: models.py ea826602411d 2009/08/22 00:45:47 jpartogi $
 import datetime
 
 from django.db import models
@@ -11,6 +11,7 @@ class Blog(models.Model):
     description = models.TextField(null=True, blank=True)
     sites = models.ManyToManyField(Site)
     picture = models.FileField(upload_to='images/')
+    timezone = models.CharField(max_length=50)
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
