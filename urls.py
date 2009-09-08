@@ -1,4 +1,4 @@
-# $Id: urls.py cf46f85cb17e 2009/08/22 01:20:46 jpartogi $
+# $Id: urls.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
 from djblog.models import EntryManager
 import datetime
 
@@ -31,6 +31,7 @@ entry_list_dict = {
 #TODO: Add comments syndication feed
 urlpatterns = patterns('',
     (r'^category/(?P<category_name>[\w-]+)/$', entry_list, dict(entry_list_dict) ),
+    (r'^tag/(?P<tag_name>[\w-]+)/$', entry_list, dict(entry_list_dict) ),
     (r'^feed/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, 'djblog-entry-feeds'), #TODO: can not call reverse url
     (r'^comments/', include('django.contrib.comments.urls')),
     

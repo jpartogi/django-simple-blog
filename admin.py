@@ -1,4 +1,4 @@
-# $Id: admin.py 02aa4fbb5a66 2009/08/18 11:26:35 jpartogi $
+# $Id: admin.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
 
 from django.contrib import admin
 
@@ -9,9 +9,9 @@ class BlogAdmin(admin.ModelAdmin):
     pass
 
 class CategoryAdmin(admin.ModelAdmin):
-    search_fields = ['name']
+    search_fields = ('name',)
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ['name', 'description', 'slug']
+    list_display = ('name', 'description', 'slug')
 
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'posted'

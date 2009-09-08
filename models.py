@@ -1,9 +1,12 @@
-# $Id: models.py 5a06b975ed15 2009/08/22 01:06:30 jpartogi $
+# $Id: models.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
 import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+
+from tagging.models import Tag
+
 from wmd import models as wmd_models
 
 class Blog(models.Model):
@@ -43,22 +46,6 @@ class EntryManager(models.Manager):
         return self.exclude(posted__gte=datetime.datetime.now()).exclude(is_draft=True).order_by('-posted')
     
 class Entry(models.Model):
-    """
-    These are the backend logics.
-    
-    When we save if the data is new, then save created date once
-    # Create category first
-    >>> user = User.objects.get(pk=1)
-    >>> category = Category.objects.get(pk=1)
-    >>> entry = Entry.objects.create(title='test', content='test', slug='slug', category=category, posted=datetime.datetime.now(), creator=user)
-    >>> entry.save()
-    >>> entry.title = 'changed'
-    >>> cls = entry.__class__
-    >>> print entry.get_next_entry()
-    None
-    >>> print entry.get_prev_entry()
-    Second Entry Title
-    """    
     title = models.CharField(max_length=128)
     category = models.ForeignKey(Category, verbose_name='category')
     content = wmd_models.MarkDownField()
@@ -68,12 +55,22 @@ class Entry(models.Model):
     posted = models.DateTimeField(verbose_name='Posted Date')
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
+    tag_list = models.CharField(max_length=128, blank=True, null=True)
     is_draft = models.BooleanField()
 
     objects = EntryManager()
     
     def __unicode__(self):
         return self.title
+
+    def save(self):
+        """
+        override save method. to add tag automatically.
+        Arguments:
+        - `self`:
+        """
+        super(Entry,self).save()
+        self.tags = self.tag_list
 
     def get_absolute_url(self):
         return "/%s/%s/" % (self.posted.strftime("%Y/%b/%d").lower(), self.slug)
@@ -84,6 +81,14 @@ class Entry(models.Model):
     def get_prev_entry(self):
         return self.__class__._default_manager.get_prev_entry(self.pk)
 
+    def _get_tags(self):
+        return Tag.objects.get_for_object(self)
+
+    def _set_tags(self, tag_list):
+        Tag.objects.update_tags(self, tag_list)
+
+    tags = property(_get_tags, _set_tags)
+    
     class Meta:
         verbose_name_plural = 'entries'
         ordering = ['-posted']
