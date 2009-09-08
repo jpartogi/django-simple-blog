@@ -1,9 +1,10 @@
-# $Id: models.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
+# $Id: models.py 36b1b1172a9b 2009/09/08 11:59:50 jpartogi $
 import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.utils.translation import ugettext as _
 
 from tagging.models import Tag
 
@@ -47,15 +48,15 @@ class EntryManager(models.Manager):
     
 class Entry(models.Model):
     title = models.CharField(max_length=128)
-    category = models.ForeignKey(Category, verbose_name='category')
+    category = models.ForeignKey(Category, verbose_name=_('category'))
     content = wmd_models.MarkDownField()
     slug = models.SlugField(max_length=50)
-    created = models.DateTimeField(auto_now_add = True, verbose_name='Created Date')
-    updated = models.DateTimeField(auto_now = True, verbose_name='Updated Date')
-    posted = models.DateTimeField(verbose_name='Posted Date')
+    created = models.DateTimeField(auto_now_add = True, verbose_name=_('Created Date'))
+    updated = models.DateTimeField(auto_now = True, verbose_name=_('Updated Date'))
+    posted = models.DateTimeField(verbose_name= _('Posted Date'))
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
-    tag_list = models.CharField(max_length=128, blank=True, null=True)
+    tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('Separate by space'))
     is_draft = models.BooleanField()
 
     objects = EntryManager()

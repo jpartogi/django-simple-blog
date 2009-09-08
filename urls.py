@@ -1,11 +1,8 @@
-# $Id: urls.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
-from djblog.models import EntryManager
-import datetime
-
+# $Id: urls.py 36b1b1172a9b 2009/09/08 11:59:50 jpartogi $
 from django.conf.urls.defaults import *
 from django.views.generic import date_based, list_detail, simple
 
-from djblog.models import Entry, EntryManager
+from djblog.models import Entry
 from djblog.feeds import EntriesFeed
 from djblog.views import entry_list
 
