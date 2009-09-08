@@ -5,6 +5,10 @@
 {% load markup %}
 
 {% block title %}{{ entry.title }}{% endblock %}
+{% block meta %}
+<meta name="keywords" content="{{ entry.tag_list }}"/>
+<meta name="description" content="{{ entry.content|truncatewords_html:25 }}" />
+{% endblock %}
 
 {% block content %}
 
