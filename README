@@ -1,6 +1,4 @@
-.. -*-markdown-*-
-
-### djblog
+djblog
 
 A simple pluggable django blog implementation.
 -----
