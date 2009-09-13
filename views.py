@@ -16,8 +16,9 @@ def entry_list(request, category_name=None, tag_name=None, queryset=None, pagina
 
     if tag_name != None:
         tag = get_object_or_404(Tag,name=tag_name)
-        queryset = TaggedItem.objects.get_by_model(Entry, tag) #TODO:  this causes bug
-
+        #queryset = TaggedItem.objects.get_by_model(Entry, tag) #TODO:  this causes bug
+        queryset = queryset.filter(tag_list__contains = tag_name) #temporary fix?
+        
     queryset.order_by('posted')
     
     return list_detail.object_list(request, queryset, paginate_by=paginate_by,
