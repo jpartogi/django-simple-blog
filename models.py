@@ -82,7 +82,8 @@ class Entry(models.Model):
         site = Site.objects.select_related().get(pk=site_id)
         blog = site.blog_set.all()[0]
         tz = timezone(blog.timezone)
-        self.posted = self.posted.replace(tzinfo = tz)
+        self.posted = self.posted.replace(tzinfo=pytz.utc)
+        self.posted = self.posted.astimezone(tz)
         super(Entry,self).save()
         self.tags = self.tag_list
 
