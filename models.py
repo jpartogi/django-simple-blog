@@ -1,5 +1,6 @@
 # $Id: models.py 36b1b1172a9b 2009/09/08 11:59:50 jpartogi $
 import datetime
+import pytz
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -71,6 +72,7 @@ class Entry(models.Model):
         - `self`:
         """
         super(Entry,self).save()
+        self.posted = self.posted.replace(tzinfo = pytz.utc)
         self.tags = self.tag_list
 
     def get_absolute_url(self):
