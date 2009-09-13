@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from djblog.models import *
 
 class BlogAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'timezone')
 
 class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name',)

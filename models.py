@@ -2,10 +2,14 @@
 import datetime
 import pytz
 
+from pytz import timezone
+
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext as _
+from django.contrib.sites.models import Site
 
 from tagging.models import Tag
 
@@ -15,8 +19,11 @@ class Blog(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     sites = models.ManyToManyField(Site)
-    picture = models.FileField(upload_to='images/')
+    picture = models.FileField(upload_to='images/', blank=True, null=True)
     timezone = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -71,8 +78,12 @@ class Entry(models.Model):
         Arguments:
         - `self`:
         """
+        site_id = settings.SITE_ID
+        site = Site.objects.get(pk=site_id)
+        blog = Blog.objects.get(site=site)
+        tz = timezone(blog.timezone)
+        self.posted = self.posted.replace(tzinfo = tz)
         super(Entry,self).save()
-        self.posted = self.posted.replace(tzinfo = pytz.utc)
         self.tags = self.tag_list
 
     def get_absolute_url(self):

@@ -1,5 +1,4 @@
 from django.template import Library, Node
-from django.db.models import get_model
 
 register = Library()
     
