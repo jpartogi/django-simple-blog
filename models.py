@@ -79,8 +79,8 @@ class Entry(models.Model):
         - `self`:
         """
         site_id = settings.SITE_ID
-        site = Site.objects.get(pk=site_id)
-        blog = Blog.objects.get(site=site)
+        site = Site.objects.select_related().get(pk=site_id)
+        blog = site.blog_set.all()[0]
         tz = timezone(blog.timezone)
         self.posted = self.posted.replace(tzinfo = tz)
         super(Entry,self).save()
