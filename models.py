@@ -59,13 +59,14 @@ class Entry(models.Model):
     category = models.ForeignKey(Category, verbose_name=_('category'))
     content = wmd_models.MarkDownField()
     slug = models.SlugField(max_length=50)
-    created = models.DateTimeField(auto_now_add = True, verbose_name=_('Created Date'))
-    updated = models.DateTimeField(auto_now = True, verbose_name=_('Updated Date'))
-    posted = models.DateTimeField(verbose_name= _('Posted Date'))
+    created = models.DateTimeField(auto_now_add = True, verbose_name = _('created date'))
+    updated = models.DateTimeField(auto_now = True, verbose_name = _('updated date'))
+    posted = models.DateTimeField(verbose_name = _('posted date'))
+    edit_posted = models.BooleanField(blank=True, verbose_name = _('edit posted date?'))
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
     tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('Separate by space'))
-    is_draft = models.BooleanField()
+    is_draft = models.BooleanField(verbose_name = _('is draft?'))
 
     objects = EntryManager()
     
@@ -78,12 +79,16 @@ class Entry(models.Model):
         Arguments:
         - `self`:
         """
-        site_id = settings.SITE_ID
-        site = Site.objects.select_related().get(pk=site_id)
-        blog = site.blog_set.all()[0]
-        tz = timezone(blog.timezone)
-        #replace the timezone first, then convert to utc
-        self.posted = self.posted.replace(tzinfo=tz).astimezone(pytz.utc)
+        if self.id == None or self.edit_posted == True:
+            site_id = settings.SITE_ID
+            site = Site.objects.select_related().get(pk=site_id)
+            blog = site.blog_set.all()[0]
+            tz = timezone(blog.timezone)
+
+            #replace the timezone first, then convert to utc
+
+            self.posted = self.posted.replace(tzinfo=tz).astimezone(pytz.utc)
+
         super(Entry,self).save()
         self.tags = self.tag_list
 
