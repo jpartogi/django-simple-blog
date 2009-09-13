@@ -1,9 +1,9 @@
-djblog
-
+h2. djblog
 A simple pluggable django blog implementation.
------
 
-Dependencies:
+*Dependencies*:
 
- 1. [django wmd editor](http://bitbucket.org/scrum8/django-wmd-editor/ "django-wmd-editor")
- 2. [Python Markdown library](http://www.freewisdom.org/projects/python-markdown/ "Python Markdown")
+# "django wmd editor": http://bitbucket.org/scrum8/django-wmd-editor/
+# "Python Markdown library": http://www.freewisdom.org/projects/python-markdown/
+# "Pygments": http://pygments.org/
+# "Django tagging": http://code.google.com/p/django-tagging/
