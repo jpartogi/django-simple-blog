@@ -23,8 +23,8 @@ class EntryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
     def save_model(self, request, obj, form, change):
-        print change
-        obj.creator = User.objects.get(username=request.user.username)
+        if change != True:
+            obj.creator = User.objects.get(username=request.user.username)
         obj.save()
 
 admin.site.register(Blog, BlogAdmin)

@@ -1,6 +1,7 @@
 # $Id: urls.py 36b1b1172a9b 2009/09/08 11:59:50 jpartogi $
 from django.conf.urls.defaults import *
 from django.views.generic import date_based, list_detail, simple
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 
 from djblog.models import Entry
 from djblog.feeds import EntriesFeed
@@ -25,11 +26,17 @@ entry_list_dict = {
     'paginate_by': 10,
 }
 
+sitemaps = {
+    'flatpages': FlatPageSitemap,
+    'entries': GenericSitemap(entry_dict, priority=0.6),
+}
+
 #TODO: Add comments syndication feed
 urlpatterns = patterns('',
     (r'^category/(?P<category_name>[\w-]+)/$', entry_list, dict(entry_list_dict) ),
     (r'^tag/(?P<tag_name>[\w-]+)/$', entry_list, dict(entry_list_dict) ),
     (r'^feed/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}, 'djblog-entry-feeds'), #TODO: can not call reverse url
+    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}, 'djblog-sitemap'),
     (r'^comments/', include('django.contrib.comments.urls')),
     
     (r'^comment/saved/$',  simple.direct_to_template, {'template': 'comments/saved.html'}, 'djblog-comment-saved'),

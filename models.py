@@ -8,8 +8,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.contrib.sitemaps import ping_google
 from django.utils.translation import ugettext as _
-from django.contrib.sites.models import Site
 
 from tagging.models import Tag
 
@@ -91,6 +91,13 @@ class Entry(models.Model):
 
         super(Entry,self).save()
         self.tags = self.tag_list
+
+        try:
+             ping_google()
+        except Exception:
+             # Bare 'except' because we could get a variety
+             # of HTTP-related exceptions.
+             pass
 
     def get_absolute_url(self):
         return "/%s/%s/" % (self.posted.strftime("%Y/%b/%d").lower(), self.slug)
