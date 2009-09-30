@@ -54,7 +54,12 @@
     <ol class="comment block">
     {% for comment in comments %}
     <li>
-        <a href="{{ comment.user_url }}">{{ comment.user_name }}</a> said:
+        {% if comment.user_url %}
+            <a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
+        {% else %}
+            {{ comment.user_name }}
+        {% endif %}
+        said:
         <div class="info" style="margin-bottom:1em;">{{ comment.submit_date|date:"l, F dS Y" }}</div>
          
         <div class="border-bottom">{{ comment.comment }}</div>
