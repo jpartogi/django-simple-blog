@@ -7,7 +7,7 @@ from djblog.models import Entry, Category
 class EntriesFeed(Feed):
     feed_type = Atom1Feed
     title = "Blog Entries Feed"
-    link = "/blog/"
+    link = "/feed/entries/"
     description = "Blog Entries Feed"
     description_template = 'blog/feed.html'
 
