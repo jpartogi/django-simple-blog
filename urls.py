@@ -44,7 +44,6 @@ urlpatterns = patterns('',
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$', date_based.archive_month, dict(entry_dict, template_name='blog/archives.html')),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$', date_based.archive_day, dict(entry_dict, template_name='blog/archives.html')),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[\w-]+)/$', date_based.object_detail, dict(entry_dict, template_name='blog/view.html', slug_field = 'slug',)),
-    
-    #This must be last
-    (r'^$', list_detail.object_list, dict(entry_list_dict), 'djblog-entry-list'),
+     
+    (r'^$', list_detail.object_list, dict(entry_list_dict), 'djblog-entry-list'), #This must be last
 )
