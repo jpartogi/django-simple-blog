@@ -52,7 +52,7 @@ class EntryManager(models.Manager):
         else: return None
 
     def get_latest_posted_entries(self):
-        return self.exclude(posted__gte=datetime.datetime.now()).exclude(is_draft=True).order_by('-posted')
+        return self.exclude(created__gte=datetime.datetime.now()).exclude(is_draft=True)
     
 class Entry(models.Model):
     title = models.CharField(max_length=128)
@@ -61,8 +61,8 @@ class Entry(models.Model):
     slug = models.SlugField(max_length=50)
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created date'))
     updated = models.DateTimeField(auto_now = True, verbose_name = _('updated date'))
-    posted = models.DateTimeField(verbose_name = _('posted date'))
-    edit_posted = models.BooleanField(blank=True, verbose_name = _('edit posted date?'))
+    posted = models.DateTimeField(auto_now_add = True, verbose_name = _('posted date'))
+    #edit_posted = models.BooleanField(blank=True, verbose_name = _('edit posted date?'))
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
     tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('Separate by space'))
@@ -79,6 +79,7 @@ class Entry(models.Model):
         Arguments:
         - `self`:
         """
+        """
         if self.id == None or self.edit_posted == True:
             site_id = settings.SITE_ID
             site = Site.objects.select_related().get(pk=site_id)
@@ -87,8 +88,8 @@ class Entry(models.Model):
 
             #replace the timezone first, then convert to utc
 
-            self.posted = self.posted.replace(tzinfo=tz).astimezone(pytz.utc)
-
+            #self.posted = self.posted.replace(tzinfo=tz).astimezone(pytz.utc)
+        """
         super(Entry,self).save()
         self.tags = self.tag_list
 

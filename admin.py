@@ -18,8 +18,8 @@ class EntryAdmin(admin.ModelAdmin):
     list_select_related = True
     search_fields = ('title', 'content')
     exclude = ('creator', 'created')
-    list_display = ('title', 'category', 'creator', 'posted', 'created', 'updated', 'is_draft')
-    list_filter = ('posted', 'created', 'category')
+    list_display = ('title', 'category', 'creator', 'created', 'updated', 'is_draft')
+    list_filter = ('created', 'category')
     prepopulated_fields = {"slug": ("title",)}
 
     def save_model(self, request, obj, form, change):
