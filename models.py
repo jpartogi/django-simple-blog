@@ -52,7 +52,7 @@ class EntryManager(models.Manager):
         else: return None
 
     def get_latest_posted_entries(self):
-        return self.exclude(created__gte=datetime.datetime.now()).exclude(is_draft=True)
+        return self.exclude(is_draft=True)
     
 class Entry(models.Model):
     title = models.CharField(max_length=128)
