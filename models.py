@@ -62,10 +62,9 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add = True, verbose_name = _('created date'))
     updated = models.DateTimeField(auto_now = True, verbose_name = _('updated date'))
     posted = models.DateTimeField(auto_now_add = True, verbose_name = _('posted date'))
-    #edit_posted = models.BooleanField(blank=True, verbose_name = _('edit posted date?'))
     creator = models.ForeignKey(User)
     sites = models.ManyToManyField(Site)
-    tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('Separate by space'))
+    tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('separate by space'))
     is_draft = models.BooleanField(verbose_name = _('is draft?'))
 
     objects = EntryManager()
@@ -80,6 +79,7 @@ class Entry(models.Model):
         - `self`:
         """
         """
+        if current_posted_date != prev_posted_date
         if self.id == None or self.edit_posted == True:
             site_id = settings.SITE_ID
             site = Site.objects.select_related().get(pk=site_id)
