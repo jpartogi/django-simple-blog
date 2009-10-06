@@ -24,3 +24,4 @@ def entry_list(request, category_name=None, tag_name=None, queryset=None, pagina
     return list_detail.object_list(request, queryset, paginate_by=paginate_by,
                                     template_name = template_name,
                                     template_object_name= template_object_name)
+                                    
