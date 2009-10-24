@@ -4,8 +4,8 @@ from django.views.generic import list_detail
 
 from tagging.models import Tag, TaggedItem
 
-from djblog.forms import *
-from djblog.models import *
+from simple_blog.forms import *
+from simple_blog.models import *
 
 def entry_list(request, category_name=None, tag_name=None, queryset=None, paginate_by=None,
         template_name=None, template_object_name=None):

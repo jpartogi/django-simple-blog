@@ -4,7 +4,7 @@ from django.contrib.syndication.feeds import Feed
 from django.contrib.sites.models import Site
 from django.utils.feedgenerator import Atom1Feed
 
-from djblog.models import Entry, Category
+from simple_blog.models import Entry, Category
 
 class EntriesFeed(Feed):
     feed_type = Atom1Feed

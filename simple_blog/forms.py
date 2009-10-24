@@ -4,4 +4,4 @@ import datetime
 from django import forms
 from django.forms import ModelForm
 
-from djblog.models import *     
+from simple_blog.models import *

@@ -3,9 +3,9 @@ from django.conf.urls.defaults import *
 from django.views.generic import date_based, list_detail, simple
 from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 
-from djblog.models import Entry
-from djblog.feeds import EntriesFeed
-from djblog.views import entry_list
+from simple_blog.models import Entry
+from simple_blog.feeds import EntriesFeed
+from simple_blog.views import entry_list
 
 feeds = {
     'entries': EntriesFeed,

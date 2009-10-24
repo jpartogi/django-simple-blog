@@ -3,7 +3,7 @@
 from django.contrib import admin
 
 from django.contrib.auth.models import User
-from djblog.models import *
+from simple_blog.models import *
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('name', 'timezone')

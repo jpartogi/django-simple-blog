@@ -1,7 +1,7 @@
 from django.template import Library, Node
 from django.db.models import get_model
 
-from djblog.models import Entry
+from simple_blog.models import Entry
 
 register = Library()
 

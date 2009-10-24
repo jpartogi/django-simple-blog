@@ -2,7 +2,7 @@
 
 from django.template import Library, Node
 
-from djblog.models import Category
+from simple_blog.models import Category
 
 register = Library()
 
