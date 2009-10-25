@@ -25,11 +25,29 @@ def get_latest(parser, token):
 get_latest = register.tag(get_latest)
 
 class LatestEntriesNode(Node):
+    def __init__(self, varname, limit=0):
+        self.varname = varname
+        self.limit = limit
+
     def render(self, context):
-        context['entries'] = Entry.objects.get_latest_posted_entries()
+        entries = Entry.objects.get_latest_posted_entries()
+        
+        if self.limit != None and self.limit != 0:
+            entries = entries[:self.limit]
+
+        context[self.varname] = entries
+        
         return ''
 
 def get_latest_entries(parser, token):
-    return LatestEntriesNode()
+    bits = token.contents.split()
+
+    return LatestEntriesNode(bits[2], bits[4])
+
+def get_latest_entries_by_year(parser, token):
+    bits = token.contents.split()
+
+    return LatestEntriesNode(bits[2])
 
 get_latest_entries = register.tag(get_latest_entries)
+get_latest_entries_by_year = register.tag(get_latest_entries_by_year)

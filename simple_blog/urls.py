@@ -72,11 +72,13 @@ urlpatterns = patterns('',
 
     url(r'^(?P<year>\d{4})/$',
         date_based.archive_year,
-        dict(entry_archives_dict, template_name='blog/archives/year.html')),
+        dict(entry_archives_dict, template_name='blog/archives/year.html'),
+        name='blog-year-archives'),
 
     url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$',
         date_based.archive_month,
-        dict(entry_archives_dict, template_name='blog/archives/month.html')),
+        dict(entry_archives_dict, template_name='blog/archives/month.html'),
+        name='blog-month-archives'),
 
     url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$',
         date_based.archive_day,
