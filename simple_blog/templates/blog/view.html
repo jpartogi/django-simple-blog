@@ -43,36 +43,13 @@
         </div>
 
         <div class="text back">
-            &laquo; <a href="{% url djblog-entry-list %}">Back</a>
+            &laquo; <a href="{% url blog-entry-list %}">Back</a>
         </div>
     </div>
 
-    <div id="comments">
-    <h2 id="title" class="border-bottom">Comments</h2>
-    {% get_comment_list for entry as comments %}
-
-    <ol class="comment block">
-    {% for comment in comments %}
-    <li>
-        {% if comment.user_url %}
-            <a href="{{ comment.user_url }}">{{ comment.user_name }}</a>
-        {% else %}
-            {{ comment.user_name }}
-        {% endif %}
-        said:
-        <div class="info" style="margin-bottom:1em;">{{ comment.submit_date|date:"l, F dS Y" }}</div>
-         
-        <div class="border-bottom">{{ comment.comment }}</div>
-    </li>    
-    {% endfor %}
-    </ol>
-    
-    {% get_comment_form for entry as form %}
-    {% include "comments/djblog_entry_form.html" %}
-    </div>
     
     <div class="text back">
-        &laquo; <a href="{% url djblog-entry-list %}">Back</a>
+        &laquo; <a href="{% url blog-entry-list %}">Back</a>
     </div>
 </div>
 {% endblock %}

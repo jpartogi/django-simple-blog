@@ -14,14 +14,7 @@
         <h2 id="title"><a href='{{ entry.get_absolute_url }}'>{{ entry.title }}</a></h2>
         <div class="info border-bottom">
             Posted {{ entry.posted|naturalday }} by {{ entry.creator }} filed under
-            <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>.
-
-            {% get_comment_count for entry as comment_count %}
-            <span id="comment_link">
-                <a href="{{ entry.get_absolute_url }}#comments">
-                Comment{{ comment_count|pluralize }} ({{ comment_count }})
-                </a>
-            </span>
+            <a href="{{ entry.category.get_absolute_url }}">{{ entry.category.name }}</a>
         </div>
 
         <div class="entry">
