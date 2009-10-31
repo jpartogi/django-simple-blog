@@ -42,54 +42,57 @@ urlpatterns = patterns('',
     url(r'^category/(?P<category_name>[\w-]+)/$',
         entry_list,
         dict(entry_list_dict),
-        name='djblog-entries-by-category'),
+        name='blog-entries-by-category'),
 
     url(r'^tag/(?P<tag_name>[\w-]+)/$',
         entry_list,
         dict(entry_list_dict),
-        name='djblog-entries-by-tag'),
+        name='blog-entries-by-tag'),
 
     url(r'^feed/(?P<url>.*)/$',
         'django.contrib.syndication.views.feed',
         {'feed_dict': feeds},
-        name='djblog-entry-feeds'), #TODO: can not call reverse url
+        name='blog-entry-feeds'), 
 
     url(r'^sitemap.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps},
-        name='djblog-sitemap'),
+        name='blog-sitemap'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
     
     url(r'^comment/saved/$',
         simple.direct_to_template,
         {'template': 'comments/saved.html'},
-        name='djblog-comment-saved'),
+        name='blog-comment-saved'),
 
     url(r'^archives/',
         list_detail.object_list,
-        dict(entry_list_dict, template_name= 'blog/archive.html')),
+        dict(entry_list_dict, template_name= 'blog/archive.html'),
+        name='blog-archives'),
 
     url(r'^(?P<year>\d{4})/$',
         date_based.archive_year,
         dict(entry_archives_dict, template_name='blog/archives/year.html'),
-        name='blog-year-archives'),
+        name='blog-archives-year'),
 
     url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$',
         date_based.archive_month,
         dict(entry_archives_dict, template_name='blog/archives/month.html'),
-        name='blog-month-archives'),
+        name='blog-archives-month'),
 
     url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$',
         date_based.archive_day,
-        dict(entry_archives_dict, template_name='blog/archives/day.html')),
+        dict(entry_archives_dict, template_name='blog/archives/day.html'),
+        name='blog-archives-day'),
         
     url(r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/(?P<slug>[\w-]+)/$',
         date_based.object_detail,
-        dict(entry_dict, template_name='blog/view.html', slug_field = 'slug',)),
+        dict(entry_dict, template_name='blog/view.html', slug_field = 'slug',),
+        name='blog-view-entry'),
      
     url(r'^$',
         list_detail.object_list,
         dict(entry_list_dict),
-        name='djblog-entry-list'), #This must be last
+        name='blog-entry-list'), #This must be last
 )

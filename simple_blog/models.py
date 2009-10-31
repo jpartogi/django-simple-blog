@@ -16,19 +16,19 @@ from tagging.models import Tag
 from wmd import models as wmd_models
 
 class Blog(models.Model):
-    name = models.CharField(max_length=50)
+    name        = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
-    sites = models.ManyToManyField(Site)
-    picture = models.FileField(upload_to='images/', blank=True, null=True)
-    timezone = models.CharField(max_length=50)
+    sites       = models.ManyToManyField(Site)
+    picture     = models.FileField(upload_to='images/', blank=True, null=True)
+    timezone    = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.name
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name        = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
-    slug = models.SlugField(max_length=50)
+    slug        = models.SlugField(max_length=50)
 
     def __unicode__(self):
         return self.name
@@ -55,17 +55,17 @@ class EntryManager(models.Manager):
         return self.exclude(is_draft=True)
     
 class Entry(models.Model):
-    title = models.CharField(max_length=128)
-    category = models.ForeignKey(Category, verbose_name=_('category'))
-    content = wmd_models.MarkDownField()
-    slug = models.SlugField(max_length=50)
-    created = models.DateTimeField(auto_now_add = True, verbose_name = _('created date'))
-    updated = models.DateTimeField(auto_now = True, verbose_name = _('updated date'))
-    posted = models.DateTimeField(auto_now_add = True, verbose_name = _('posted date'))
-    creator = models.ForeignKey(User)
-    sites = models.ManyToManyField(Site)
-    tag_list = models.CharField(max_length=128, blank=True, null=True, help_text=_('separate by space'))
-    is_draft = models.BooleanField(verbose_name = _('is draft?'))
+    title       = models.CharField(max_length=128)
+    category    = models.ForeignKey(Category, verbose_name=_('category'))
+    content     = wmd_models.MarkDownField()
+    slug        = models.SlugField(max_length=50)
+    created     = models.DateTimeField(auto_now_add = True, verbose_name = _('created date'))
+    updated     = models.DateTimeField(auto_now = True, verbose_name = _('updated date'))
+    posted      = models.DateTimeField(auto_now_add = True, verbose_name = _('posted date'))
+    creator     = models.ForeignKey(User)
+    sites       = models.ManyToManyField(Site)
+    tag_list    = models.CharField(max_length=128, blank=True, null=True, help_text=_('separate by space'))
+    is_draft    = models.BooleanField(verbose_name = _('is draft?'))
 
     objects = EntryManager()
     
@@ -102,6 +102,9 @@ class Entry(models.Model):
 
     def get_absolute_url(self):
         return "/%s/%s/" % (self.created.strftime("%Y/%b/%d").lower(), self.slug)
+
+    def get_monthly_archives_url(self):
+        return "/%s/" % (self.created.strftime("%Y/%b").lower())
 
     def get_next_entry(self):
         return self.__class__._default_manager.get_next_entry(self.pk)
