@@ -41,13 +41,13 @@ class Category(models.Model):
         ordering = ['name']
 
 class EntryManager(models.Manager):
-    def get_prev_entry(self, pk):
-        list = self.get_latest_posted_entries().filter(id__gt=pk).reverse()
+    def get_prev_entry(self, created):
+        list = self.get_latest_posted_entries().filter(created__gt=created).reverse()
         if len(list) > 0: return list[0]
         else: return None
 
-    def get_next_entry(self, pk):
-        list = self.get_latest_posted_entries().filter(id__lt=pk)
+    def get_next_entry(self, created):
+        list = self.get_latest_posted_entries().filter(created__lt=created)
         if len(list) > 0: return list[0]
         else: return None
 
@@ -107,10 +107,10 @@ class Entry(models.Model):
         return "/%s/" % (self.created.strftime("%Y/%b").lower())
 
     def get_next_entry(self):
-        return self.__class__._default_manager.get_next_entry(self.pk)
+        return self.__class__._default_manager.get_next_entry(self.created)
 
     def get_prev_entry(self):
-        return self.__class__._default_manager.get_prev_entry(self.pk)
+        return self.__class__._default_manager.get_prev_entry(self.created)
 
     def _get_tags(self):
         return Tag.objects.get_for_object(self)
