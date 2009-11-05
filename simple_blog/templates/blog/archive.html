@@ -12,7 +12,7 @@
     <ul id="archiveslist" class="linklist">
     {% for entry in group.list %}
         <li>
-            <strong class="date">{{ entry.pub_date|date:"M j" }}</strong>
+            <strong class="date">{{ entry.created|date:"M j" }}</strong>
             <a class="title" href="{{ entry.url }}">{{ entry.headline }}</a>
         </li>
     {% endfor %}
