@@ -1,5 +1,5 @@
-djblog
-======
+django-simple-blog
+==================
 A simple pluggable django blog implementation.
 
 **Dependencies**:
