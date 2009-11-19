@@ -29,7 +29,7 @@ entry_list_dict = {
 entry_archives_dict = {
     'queryset': queryset,
     'template_object_name': 'entry',
-    'date_field': 'created',
+    'date_field': 'posted',
 }
 
 sitemaps = {
