@@ -101,10 +101,10 @@ class Entry(models.Model):
              pass
 
     def get_absolute_url(self):
-        return "/%s/%s/" % (self.created.strftime("%Y/%b/%d").lower(), self.slug)
+        return "/%s/%s/" % (self.posted.strftime("%Y/%b/%d").lower(), self.slug)
 
     def get_monthly_archives_url(self):
-        return "/%s/" % (self.created.strftime("%Y/%b").lower())
+        return "/%s/" % (self.posted.strftime("%Y/%b").lower())
 
     def get_next_entry(self):
         return self.__class__._default_manager.get_next_entry(self.posted)
