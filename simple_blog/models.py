@@ -1,8 +1,8 @@
 # $Id: models.py 36b1b1172a9b 2009/09/08 11:59:50 jpartogi $
 import datetime
-import pytz
+#import pytz
 
-from pytz import timezone
+#from pytz import timezone
 
 from django.db import models
 from django.conf import settings

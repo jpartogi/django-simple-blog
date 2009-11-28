@@ -1,5 +1,3 @@
-# $Id: admin.py 1d272b240620 2009/09/08 11:37:42 jpartogi $
-
 from django.contrib import admin
 
 from django.contrib.auth.models import User
