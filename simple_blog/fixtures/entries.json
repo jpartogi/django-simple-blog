@@ -1,0 +1,63 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields":{
+            "username": "joe",
+            "password": "bloke"
+        }
+    },{
+        "model": "simple_blog.category",
+        "pk": 1,
+        "fields": {
+            "name": "General",
+            "slug": "general"
+        }
+    },{
+        "model": "simple_blog.entry",
+        "pk": 1,
+        "fields": {
+            "title": "First Entry",
+            "category": 1,
+            "content": "The content of first entry",
+            "slug": "first-entry",
+            "created": "1970-01-01 00:00:00",
+            "updated": "1970-01-01 00:00:00",
+            "posted": "1970-01-01 00:00:00",
+            "creator": 1,            
+            "tag_list": "example",
+            "is_draft": false
+        }
+    },{
+        "model": "simple_blog.entry",
+        "pk": 2,
+        "fields": {
+            "title": "Second Entry",
+            "category": 1,
+            "content": "The content of second entry",
+            "slug": "second-entry",
+            "created": "1970-01-02 00:00:00",
+            "updated": "1970-01-02 00:00:00",
+            "posted": "1970-01-02 00:00:00",
+            "creator": 1,
+            "tag_list": "example",
+            "is_draft": false
+        }
+    },{
+        "model": "simple_blog.entry",
+        "pk": 3,
+        "fields": {
+            "title": "Third Entry",
+            "category": 1,
+            "content": "The content of third entry",
+            "slug": "third-entry",
+            "created": "1970-01-03 00:00:00",
+            "updated": "1970-01-03 00:00:00",
+            "posted": "1970-01-03 00:00:00",
+            "creator": 1,
+            "tag_list": "example",
+            "is_draft": false
+        }
+    }
+
+]

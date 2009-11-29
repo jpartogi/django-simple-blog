@@ -1,6 +1,17 @@
-# $Id: tests.py 52ab46c677a7 2009/08/12 10:45:28 jpartogi $
-from django.core import urlresolvers
 from django.test import TestCase
-from django.test.client import Client
 
-from djblog.models import *
+from simple_blog.models import Entry
+
+class BlogTestCase(TestCase):
+    fixtures = ['entries.json']
+
+    def testPreviousNextEntry(self):
+        entry = Entry.objects.get(pk=2)
+
+        prev_entry = entry.get_prev_entry()
+
+        self.assertEqual(prev_entry.title, 'Third Entry')
+
+        next_entry = entry.get_next_entry()
+
+        self.assertEqual(next_entry.title, 'First Entry')
